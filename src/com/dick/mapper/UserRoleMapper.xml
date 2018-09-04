@@ -1,0 +1,100 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dick.mapper.UserRoleMapper">
+	<!-- 某个类的mapper方法，在该mapper.xml下，基本的resultMap重复使用高，可以写一个反复使用 -->
+	<!-- 角色使用的resultmap -->
+	<resultMap type="Auth_role" id="roleList">
+		<result column="role_id" property="role_id"/>
+		<result column="role_name" property="role_name"/>
+	</resultMap>
+	
+	<!-- 用户的resultmap -->
+	<resultMap type="Auth_user" id="userList">
+		<result column="username" property="username"/>
+		<result column="password" property="pwd"/>
+		<result column="name" property="uName"/>
+		<result column="roleName" property="role_name"/>
+		<result column="status" property="enStatus"/>
+	</resultMap>
+	
+	
+	<!-- 如果在XXXmapper.java文件下，查询方法没有参数，那么select属性里无需做  parameterType的定义。
+		如果返回的结果不是自动匹配（一般情况下，如果数据库字段和po里的类的属性都一一对应，可以适应），
+		那么要在配置resultMap，并且指定好type的po类对象，如上所示
+	-->
+	<!-- 获取角色集合 -->
+	<select id="getRoleList" resultMap="roleList">
+		SELECT role_id,role_name,visible FROM auth_role WHERE visible = true
+		${value}
+	</select>
+	<!-- 获取角色集合 -->
+	<select id="getRoleList1" resultMap="roleList">
+		SELECT role_id,role_name,visible FROM auth_role WHERE visible = true
+	</select>
+	
+	<!-- 获取用户集合 -->
+	<select id="getUserlist" resultMap="userList">
+		SELECT username,password,name,roleName,status,visible FROM userview WHERE visible = true
+	</select>
+	<!-- 获取用户集合 -->
+	<select id="getUserlist1" resultMap="userList">
+		SELECT username,password,name,roleName,status,visible FROM userview WHERE visible = true
+		${value}
+	</select>
+	
+	<!-- 添加角色 -->
+	<insert id="insertRole" parameterType="com.dick.pojo.Auth_role">
+		<selectKey keyColumn="id" keyProperty="role_id" order="AFTER"
+		resultType="int">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO Auth_role
+		(role_name) VALUES
+		(#{role_name})
+	</insert>
+	
+	<!-- 删除角色 -->
+	<update id="deleteRole" parameterType="com.dick.pojo.Auth_role">
+		UPDATE Auth_role SET visible = false WHERE role_id = #{role_id}
+	</update>
+	
+	<!-- 更新角色 -->
+	<update id="updateRole" parameterType="com.dick.pojo.Auth_role">
+		UPDATE Auth_role SET role_name = #{role_name} WHERE role_id = #{role_id}
+	</update>
+	
+	<!-- 通过id查询角色 -->
+	<select id="selectRoleById" resultMap="roleList" parameterType="int">
+		SELECT role_id,role_name,visible FROM auth_role WHERE role_id LIKE '%${value}%' AND visible = true
+	</select>
+	<!-- 通过名字模糊查询角色 -->
+	<select id="selectRoleByName" resultMap="roleList" parameterType="String">
+		SELECT role_id,role_name,visible FROM auth_role WHERE role_name LIKE '%${value}%' AND visible = true
+	</select>
+	<!-- 添加用户 -->
+	<insert id="insertUser" parameterType="com.dick.pojo.Auth_user">
+		INSERT INTO Auth_user
+		(username,pwd,uName,role_id,enStatus) VALUES
+		(#{username},#{pwd},#{uName},#{role_id},#{enStatus})
+	</insert>
+	<!-- 用户维护 -->
+	<update id="updateUser" parameterType="com.dick.pojo.Auth_user">
+		UPDATE Auth_user SET uName = #{uName},role_id = #{role_id},enStatus = #{enStatus} WHERE username = #{username}
+	</update>
+	
+	<!-- 账号查询用户 -->
+	<select id="selectUserById" resultMap="userList" parameterType="String">
+		SELECT username,password,name,roleName,status,visible FROM userview WHERE username LIKE '%${value}%' AND visible = true
+	</select>
+	
+	<!-- 名字查用户 -->
+	<select id="selectUserByName" resultMap="userList" parameterType="String">
+		SELECT username,password,name,roleName,status,visible FROM userview WHERE name LIKE '%${value}%' AND visible = true
+	</select>
+	
+	<!-- 更新密码 -->
+	<update id="updatePwd" parameterType="com.dick.pojo.Auth_user">
+		UPDATE Auth_user SET pwd = #{pwd} WHERE username = #{username}
+	</update>
+</mapper>

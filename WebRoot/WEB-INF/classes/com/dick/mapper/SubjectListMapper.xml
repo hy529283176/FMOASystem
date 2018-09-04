@@ -1,0 +1,106 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dick.mapper.SubjectListMapper">
+	<!-- 某个类的mapper方法，在该mapper.xml下，基本的resultMap重复使用高，可以写一个反复使用 -->
+	<!-- 角色使用的resultmap -->
+	
+	<resultMap type="com.dick.pojo.AccountSub" id="subjectList">
+		<result column="acSub_id" property="acSub_id"/>
+		<result column="acSub_name" property="acSub_name"/>
+		<result column="acSub_classes" property="acSub_classes"/>
+		<result column="acSub_property" property="acSub_property"/>
+		<result column="balanceDirection" property="balanceDirection"/>
+		<result column="initDebitRemaining" property="initDebitRemaining"/>
+		<result column="initDebitQuantity" property="initDebitQuantity"/>
+		<result column="initDebitPrice" property="initDebitPrice"/>
+		<result column="initLenderRemaining" property="initLenderRemaining"/>
+		<result column="initLenderQuantity" property="initLenderQuantity"/>
+		<result column="initLenderPrice" property="initLenderPrice"/>
+		<result column="yearSumDebit" property="yearSumDebit"/>
+		<result column="yearDebitQuantity" property="yearDebitQuantity"/>
+		<result column="yearDebitPrice" property="yearDebitPrice"/>
+		<result column="yearSumLender" property="yearSumLender"/>
+		<result column="yearLenderQuantity" property="yearLenderQuantity"/>
+		<result column="yearLenderPrice" property="yearLenderPrice"/>
+		<result column="endDebitBalance" property="endDebitBalance"/>
+		<result column="endDebitQuantity" property="endDebitQuantity"/>
+		<result column="endDebitPrice" property="endDebitPrice"/>
+		<result column="endLenderBalance" property="endLenderBalance"/>
+		<result column="endLenderQuantity" property="endLenderQuantity"/>
+		<result column="endLenderPrice" property="endLenderPrice"/>
+		<result column="isQuantity" property="isQuantity"/>
+		<result column="enStatus" property="enStatus"/>
+		<result column="super_id" property="super_id"/>
+		<result column="countNume" property="countNume"/>		
+	</resultMap>
+	
+	
+	<!-- 如果在XXXmapper.java文件下，查询方法没有参数，那么select属性里无需做  parameterType的定义。
+		如果返回的结果不是自动匹配（一般情况下，如果数据库字段和po里的类的属性都一一对应，可以适应），
+		那么要在配置resultMap，并且指定好type的po类对象，如上所示
+	-->
+	<!-- 获取资产科目集合 -->
+	<select id="getSubjectList" resultMap="subjectList">
+		SELECT acSub_id,acSub_name,acSub_property,balanceDirection,enStatus,visible FROM accountsub
+		 WHERE visible = true AND acSub_classes = #{acSub_classes}
+		 LIMIT #{currentPage},#{pageSize}
+	</select>	
+	
+	<!-- 插入新科目 -->
+	<insert id="saveSubject" parameterType="com.dick.pojo.AccountSub">
+		INSERT INTO accountsub
+		(acSub_id,acSub_name,acSub_classes,acSub_property,balanceDirection,isQuantity,enStatus,super_id) 
+		VALUES
+		(#{acSub_id},#{acSub_name},#{acSub_classes},#{acSub_property},#{balanceDirection},#{isQuantity},#{enStatus},#{super_id})
+	</insert>
+	
+	<!-- 根据id查询科目 -->
+	<select id="getAccountSubById" parameterType="Integer" resultMap="subjectList">
+		SELECT 
+		acSub_id,acSub_name,acSub_classes,acSub_property,balanceDirection,initDebitRemaining
+		,initDebitQuantity,initDebitPrice,initLenderRemaining,initLenderQuantity
+		,initLenderPrice,yearSumDebit,yearDebitQuantity,yearDebitPrice,yearSumLender
+		,yearLenderQuantity,yearLenderPrice,endDebitBalance,endDebitQuantity,endDebitPrice
+		,endLenderBalance,endLenderQuantity,endLenderPrice,isQuantity,enStatus,super_id,visible 
+		FROM accountsub
+		WHERE visible = true AND acSub_id = #{id}
+	</select>
+	
+	<!-- 根据name查询科目 -->
+	<select id="selectSubjectListByName" parameterType="String" resultMap="subjectList">
+		select 
+		acSub_id,acSub_name,acSub_classes,acSub_property,balanceDirection,initDebitRemaining
+		,initDebitQuantity,initDebitPrice,initLenderRemaining,initLenderQuantity
+		,initLenderPrice,yearSumDebit,yearDebitQuantity,yearDebitPrice,yearSumLender
+		,yearLenderQuantity,yearLenderPrice,endDebitBalance,endDebitQuantity,endDebitPrice
+		,endLenderBalance,endLenderQuantity,endLenderPrice,isQuantity,enStatus,super_id,visible
+		from accountsub
+		WHERE visible = true AND acSub_name like '%${value}%'
+	</select>
+	<!-- 根据条件查询科目 -->
+	<select id="selectSubjectList" resultMap="subjectList">
+		SELECT t.acSub_id,t.acSub_name,t.acSub_classes,t.acSub_property,t.balanceDirection
+		,t.isQuantity,t.enStatus,t.super_id,t.visible
+		 FROM accountsub t WHERE t.visible = TRUE
+		 ${value}
+	</select>
+	<!-- 更新科目 -->
+	<update id="updateSubject" parameterType="com.dick.pojo.AccountSub">
+		UPDATE accountsub SET acSub_name=#{acSub_name},acSub_classes=#{acSub_classes},acSub_property=#{acSub_property}
+		,balanceDirection=#{balanceDirection},isQuantity=#{isQuantity},enStatus=#{enStatus} 
+		WHERE acSub_id=#{acSub_id}
+	</update>
+	
+	<!-- 删除科目 -->
+	<update id="deleteSubject" parameterType="Integer">
+		UPDATE accountsub a,voucher v
+		SET a.visible = FALSE,v.visible = FALSE
+		WHERE a.acSub_id = #{id}  AND v.acSub_id = #{id}
+	</update>
+	
+	<select id="selectSubjectTotleCount" resultMap="subjectList" parameterType="String">
+		 SELECT acSub_id,acSub_name,acSub_classes,acSub_property,balanceDirection FROM accountsub t WHERE t.visible = TRUE
+		AND t.acSub_classes = #{acSub_classes}
+	</select>
+</mapper>

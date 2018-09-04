@@ -1,0 +1,85 @@
+	body{
+				background-image: url(../images/login/background-image.jpg);
+				background-repeat: no-repeat;
+				background-size: cover;
+			}
+			.login{
+				width: 640px;
+				height: 360px;
+				background-image: url(../images/login/login.jpg);
+				background-repeat: no-repeat;
+				margin:70px auto;
+				padding-top: 120px;
+			}
+			.login .user{
+				width: 310px;
+				height: 235px;
+				margin-left:325px;
+			}
+			.txtUser{
+				text-align: right;
+				font-family: "΢���ź�";
+				font-size: 18px;
+				color: #214D90;
+			}
+			#txtUserD{
+				text-align: center;
+				font-family: "΢���ź�";
+				font-size: 14px;
+				color: #214D90;
+			}
+			#zhangtao{
+				width: 200px;
+				height: 28px;
+				padding-left: 5px ;
+				margin-left: 30px;
+				border: none;
+				font-family: "΢���ź�";
+				font-size: 16px;
+			}
+			#auth{
+				width: 200px;
+				height: 28px;
+				padding-left: 5px ;
+				margin-left: 30px;
+				border: none;
+				font-family: "΢���ź�";
+				font-size: 16px;
+				margin-bottom:4px;
+			}
+			.inSty{
+				width: 200px;
+				height: 28px;
+				padding-left:10px ;
+				margin-left: 12px;
+				border: none;
+				
+			}
+			.userB{
+				margin-top: 3px;
+			}
+			.userC{
+				margin-top: 3px;
+				
+			}
+			.userD{
+				margin-top: 3px;
+				
+			}
+			.userE{
+				text-align: center;
+				color: red;
+				font-size: 12px;
+			}
+			.errMes{
+				text-align: center;
+				font-size: 14px;
+				margin-top: 2px;
+				
+			}
+			.errUsername{
+				color: red;
+			}
+			.errPassword{
+				color: red;
+			}

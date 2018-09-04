@@ -1,0 +1,75 @@
+﻿body{
+	margin: 0;
+	padding: 0;
+	font-size: 12px;
+	background: #214D90 url(../images/login/bg.gif) repeat-x;
+	color: #999999;
+	font-family:"microsoft yahei","tahoma","arial",'宋体'; }
+input{
+	font-family:"microsoft yahei","tahoma","arial",'宋体'; }
+.Main{
+	background-color: #DCE5F0;
+	border: solid 3px #548FC9;
+	margin: 100px auto;
+	width: 640px;
+	height: 400px;
+}
+.logo{
+	background-color: #000000;
+	background-image: url(../images/login/logo.gif);
+	background-repeat: no-repeat;
+	width: 272px;
+	height: 122px;
+	margin: 100px 20px;
+	float: left;
+}
+.fengexian{
+	background-color: #2C6DAA;
+	width: 1px;
+	height: 200px;
+	margin-top: 80px;
+	margin-left:1px ;
+	float: left;
+}
+.login{
+	padding:25px 0 0 0;	
+	margin: 50px 20px;
+	float: left;
+	}
+.login li{
+	line-height: 38px;
+	height:38px;
+	overflow:hidden; padding:10px 0 0 0;
+	}
+span.login-text{
+	margin:0 0 4px 0; line-height:38px; line-height:38px \9; *line-height:24px; _line-height:24px;
+	}
+.left{
+	line-height: 38px;
+	vertical-align: middle;
+	width: 50px;
+	height:37px;
+	text-align: right;
+	display: -moz-inline-box;
+	display: inline-block;
+	padding-bottom:3px;
+	float: left;
+	}
+.txt{
+	width: 195px;
+	height: 33px;
+	line-height: 33px;
+	overflow: hidden;
+	border: 0px;
+	padding-left: 13px;
+	padding-right:10px;
+	color: #999999;
+	background: url(../images/login/txt.gif) no-repeat left center; margin:2px 0 0 0;
+	float: left;
+	}
+.btn{
+	background-image: url(../images/login/btnlogin.gif);
+	width: 104px;
+	height: 35px;
+	margin-left: 90px;
+}

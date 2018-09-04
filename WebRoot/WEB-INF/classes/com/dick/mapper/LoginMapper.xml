@@ -1,0 +1,20 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dick.mapper.LoginMapper">
+	<!-- 某个类的mapper方法，在该mapper.xml下，基本的resultMap重复使用高，可以写一个反复使用 -->
+	<resultMap type="Auth_user" id="userList">
+		<result column="username" property="username"/>
+		<result column="password" property="pwd"/>
+		<result column="name" property="uName"/>
+		<result column="roleName" property="role_name"/>
+		<result column="status" property="enStatus"/>
+	</resultMap>
+	<!-- 如果在XXXmapper.java文件下，查询方法没有参数，那么select属性里无需做  parameterType的定义。
+		如果返回的结果不是自动匹配（一般情况下，如果数据库字段和po里的类的属性都一一对应，可以适应），
+		那么要在配置resultMap，并且指定好type的po类对象，如上所示
+	-->
+	<select id="findUsers" resultMap="userList">
+		SELECT username,password,name,roleName,status,visible FROM userview WHERE visible = true
+	</select>
+</mapper>

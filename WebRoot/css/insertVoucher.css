@@ -1,0 +1,163 @@
+body{
+	background-color:#DCE5F0;
+}
+.voucherTable{
+				margin: 20px 5px;
+				width: 1074px;
+				height: 700px;
+			}
+			.info1{
+				height: 50px;
+				float: left;
+			}
+			.info2{
+				float: left;
+				margin-left: 5px;
+				height: 50px;
+			}
+			.info3{
+				float: left;
+				margin-left: 25px;
+				height: 50px;
+			}
+			.info4{
+				float: left;
+				height: 50px;
+				margin-left: 50px;
+				font-size: 22px;
+			}
+			.info5{
+				float: left;
+				margin-left: 50px;
+				height: 50px;
+			}
+			.info6{
+				float: left;
+				margin-left: 170px;
+				height: 50px;
+			}
+			.headerFun{
+				margin-top: 20px;
+				width: 1056px;
+				height: auto;
+			}
+			.infoHeader{
+				margin-top: 20px;
+				margin-left:40px ;
+				width: 1056px;
+				height: 30px;
+			}
+			.btnHeader{
+				margin-left:10px ;
+				width: 1056px;
+				height: 50px;
+			}
+			.saveBtn{
+				height: 40px;
+				width:auto;
+				border-radius: 3px;
+				border: solid 1px cornflowerblue;
+				background-color: cornflowerblue;
+				font-family: "ºÚÌå";
+				font-size: 18px;
+				color: white;
+			}
+			.saveBtn:hover{
+				border: solid 1px #C9F6FA;
+				background-color: #C9F6FA;
+			}
+			.voucherTbody{
+				margin-top: 20px;
+				margin-left:0 ;
+				width: 1056px;
+				height: auto;
+			}
+			.vTable{
+				width: 1056px;
+				height: auto; 	
+				border-collapse: collapse;		
+				margin-left: 0px;	
+			}
+			#voucherTable th{
+				border: solid 1px #009688;
+				text-align: center;
+				height: 50px;
+			}
+			#voucherTable td{
+				border: solid 1px #009688;
+				text-align: center;
+				height: 50px;
+			}
+			.thTitle1{
+				width:50px;
+				border:none;
+			}
+			.thTitle2{
+				width: 250px;
+			}
+			.thTitle3{
+				width:320px;
+			}
+			.thTitle4{
+				width: 215px;
+			}
+			.absInput{
+				width: 250px;
+				height: 50px;
+				border: none;
+				padding-left: 4px;
+				background-color:#DCE5F0;
+				
+			}
+			.acsubInput{
+				width: 270px;
+				height: 50px;
+				border: none;
+				padding-left: 4px;
+				background-color:#DCE5F0;
+			}
+			.acsubInputCSS{
+				width: 270px;
+				height: 50px;
+				border: none;
+				padding-left: 4px;
+				background-color:#DCE5F0;
+			}
+			.sumMoney1{
+				width: 215px;
+				height: 50px;
+				border: none;
+				padding-right: 4px;
+				text-align: right;
+				font-family: "ºÚÌå";
+				font-size: 14px;
+				background-color:#DCE5F0;
+			}
+			.sumMoney2{
+				width: 215px;
+				height: 50px;
+				border: none;
+				padding-right: 4px;
+				text-align: right;
+				font-family: "ºÚÌå";
+				font-size: 14px;
+				background-color:#DCE5F0;
+			}
+			.footerFun{
+				margin-top: 15px;
+				margin-left:40px ;
+				width: 1006px;
+				height: 50px;
+			}
+			.subCSS{
+				border: 1px solid #009688;
+				width: 307px;
+				height: 250px;
+				text-align: left;
+				padding: 5px;
+				position: absolute;
+				z-index: 99;
+				display: none;
+				overflow: scroll;
+				background-color: white;
+			}

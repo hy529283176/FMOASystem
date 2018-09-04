@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dick.mapper.VoucherMapper">
+	<!-- 凭证的resultmap -->
+	<resultMap type="com.dick.pojo.Voucher" id="voucherList">
+		<result column="voucher_id" property="voucher_id"/>
+		<result column="acSub_id" property="acSub_id"/>
+		<result column="acSub_name" property="acSub_name"/>
+		<result column="abstract" property="acsAbstract"/>
+		<result column="debitMoney" property="debitMoney"/>
+		<result column="debitQuantity" property="debitQuantity"/>
+		<result column="debitPrice" property="debitPrice"/>
+		<result column="creditorMoney" property="creditorMoney"/>
+		<result column="creditorQuantity" property="creditorQuantity"/>
+		<result column="creditorPrice" property="creditorPrice"/>
+		<result column="sumDebit" property="sumDebit"/>
+		<result column="sumCreditor" property="sumCreditor"/>
+		<result column="formMaker" property="formMaker"/>
+		<result column="reChecker" property="reChecker"/>
+		<result column="bookKeeper" property="bookKeeper"/>
+		<result column="bookKeeperTime" property="bookKeeperTime"/>
+		<result column="checkStatus" property="checkStatus"/>
+		<result column="createTime" property="createTime"/>
+		<result column="periods" property="periods"/>
+		<result column="bills" property="bills"/>
+		<result column="billsPhotos" property="billsPhotos"/>
+		<result column="superid" property="superid"/>
+		<result column="jiezhang" property="jiezhang"/>
+	</resultMap>
+	
+	<resultMap type="com.dick.pojo.AccountSub" id="subjectList">
+		<result column="acSub_id" property="acSub_id"/>
+		<result column="acSub_name" property="acSub_name"/>
+		<result column="acSub_classes" property="acSub_classes"/>
+		<result column="acSub_property" property="acSub_property"/>
+		<result column="balanceDirection" property="balanceDirection"/>
+		<result column="initDebitRemaining" property="initDebitRemaining"/>
+		<result column="initDebitQuantity" property="initDebitQuantity"/>
+		<result column="initDebitPrice" property="initDebitPrice"/>
+		<result column="initLenderRemaining" property="initLenderRemaining"/>
+		<result column="initLenderQuantity" property="initLenderQuantity"/>
+		<result column="initLenderPrice" property="initLenderPrice"/>
+		<result column="yearSumDebit" property="yearSumDebit"/>
+		<result column="yearDebitQuantity" property="yearDebitQuantity"/>
+		<result column="yearDebitPrice" property="yearDebitPrice"/>
+		<result column="yearSumLender" property="yearSumLender"/>
+		<result column="yearLenderQuantity" property="yearLenderQuantity"/>
+		<result column="yearLenderPrice" property="yearLenderPrice"/>
+		<result column="endDebitBalance" property="endDebitBalance"/>
+		<result column="endDebitQuantity" property="endDebitQuantity"/>
+		<result column="endDebitPrice" property="endDebitPrice"/>
+		<result column="endLenderBalance" property="endLenderBalance"/>
+		<result column="endLenderQuantity" property="endLenderQuantity"/>
+		<result column="endLenderPrice" property="endLenderPrice"/>
+		<result column="isQuantity" property="isQuantity"/>
+		<result column="enStatus" property="enStatus"/>
+		<result column="super_id" property="super_id"/>	
+	</resultMap>
+
+	
+	<!-- 添加凭证 -->
+	<insert id="saveVoucher" parameterType="com.dick.pojo.Voucher">
+		INSERT INTO voucher
+		(voucher_id,acSub_id,abstract,debitMoney,creditorMoney,sumDebit,
+		sumCreditor,formMaker,createTime,periods,bills,superid) VALUES
+		(#{voucher_id},#{acSub_id},#{acsAbstract},
+		#{debitMoney},#{creditorMoney},
+		#{sumDebit},#{sumCreditor},#{formMaker}
+		,#{createTime},#{periods},
+		#{bills},#{superid})
+	</insert>
+	
+	<!-- 根据name查询科目 -->
+	<select id="selectSubjectListByName" parameterType="String" resultMap="subjectList">
+		SELECT 
+		acSub_id,acSub_name,acSub_classes,acSub_property,balanceDirection,initDebitRemaining
+		,initDebitQuantity,initDebitPrice,initLenderRemaining,initLenderQuantity
+		,initLenderPrice,yearSumDebit,yearDebitQuantity,yearDebitPrice,yearSumLender
+		,yearLenderQuantity,yearLenderPrice,endDebitBalance,endDebitQuantity,endDebitPrice
+		,endLenderBalance,endLenderQuantity,endLenderPrice,isQuantity,enStatus,super_id,visible
+		FROM accountsub
+		WHERE acSub_name like '%${value}%' AND visible = true
+	</select>
+	
+	<select id="getSubjectListByType" resultMap="subjectList">
+		SELECT 
+		acSub_id,acSub_name,acSub_classes,acSub_property,balanceDirection,initDebitRemaining
+		,initDebitQuantity,initDebitPrice,initLenderRemaining,initLenderQuantity
+		,initLenderPrice,yearSumDebit,yearDebitQuantity,yearDebitPrice,yearSumLender
+		,yearLenderQuantity,yearLenderPrice,endDebitBalance,endDebitQuantity,endDebitPrice
+		,endLenderBalance,endLenderQuantity,endLenderPrice,isQuantity,enStatus,super_id,visible
+		FROM accountsub
+		WHERE acSub_classes = #{acSub_classes} AND super_id = #{supid} AND visible = true
+	</select>
+	
+	<select id="getVoucherList" resultMap="voucherList">
+		SELECT 
+		DISTINCT t.voucher_id,a.acSub_name,t.abstract,t.debitMoney,t.creditorMoney,
+		t.sumDebit,t.sumCreditor,t.formMaker,t.reChecker,t.bookKeeper,t.checkStatus
+		,t.createTime,t.visible
+		FROM voucher t
+		LEFT JOIN accountsub a
+		ON(t.acSub_id = a.acSub_id)
+		WHERE t.visible = true
+		${value}
+	</select>
+	
+	<update id="deleteVoucherByVoucherId" parameterType="Integer">
+		UPDATE voucher v SET v.visible = FALSE
+		WHERE (v.voucher_id = #{voucherid} or v.superid = #{voucherid})
+	</update>
+	
+	<update id="updateVoucherCheck">
+		update voucher  set checkStatus=#{cstatus},reChecker=#{checker}
+		where (voucher_id = #{voucherid} or superid = #{voucherid})
+	</update>
+	
+</mapper>

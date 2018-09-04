@@ -1,0 +1,79 @@
+body{
+	background-color:#DCE5F0;
+}
+			.tbDiv{
+				width: 500px;
+				height: auto;
+				margin: auto;
+			}
+			.tUser{
+				width:500px;
+				height: auto;
+				border-collapse:collapse;
+			}
+			tr{
+				background-color: #D2E9FF;
+				height: 40px;
+			}
+			.title{
+					width: 500px;
+					height: 25px;
+					margin: 2px auto;
+					background-color: rgba(160,216,222,0.9);
+					border-radius: 4px;
+					text-align: center;
+					font-family: "微软雅黑";
+					font-size: 18px;
+				}
+				.tTitle{
+					width: 100px;
+					text-align: right;
+					font-family: "微软雅黑";
+					font-size:20px ;
+					color: black;
+				}
+				.tInput{
+					width: 200px;
+					padding-left:10px ;
+				}
+				.tbtn{
+					text-align: center;
+				}
+				.inCss{
+					width: 190px;
+					height: 25px;
+					border: none;
+				}
+				.sCSS{
+					width: 190px;
+					height: 25px;
+					border: none;
+					font-family: "微软雅黑";
+					font-size: 16px;
+					padding-left:3px ;
+				}
+				.btnSub{
+					width: 50px;
+					height: 30px;
+					border-radius: 4px;
+					border: solid 1px #BB1414;
+					background-color: white;
+				}
+				.btnSub:hover{
+					background-color: #00FF00;
+				}
+				a:hover{
+					color: #00FF00;
+				}
+				.spanStyle{/*默认样式：认为是对的，绿色的*/
+					color:#00ff00;
+					text-align: left;
+					font-size: 18px;		
+				}
+				.spanStyleErr{/*错误时的颜色*/
+					color:#ff0000;
+					text-align: left;
+					font-size: 12px;
+					font-family: "宋体";
+					padding: 2px;
+				}
